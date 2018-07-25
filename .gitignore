@@ -1,0 +1,5 @@
+_site
+.sass-cache
+.jekyll-metadata
+.stack-work
+_cache

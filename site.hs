@@ -3,12 +3,10 @@
 import           Control.Applicative
 import           Data.ByteString.Base64.Lazy
 import           Data.ByteString.Lazy.Char8  (unpack)
+import           Data.Maybe
 import           Data.Monoid                 (mappend)
 import           Hakyll
-import Data.Maybe
-import System.FilePath
-
-import Debug.Trace
+import           System.FilePath
 
 --------------------------------------------------------------------------------
 main :: IO ()
@@ -142,8 +140,8 @@ withRelatedPost r f pattern item = do
     let id = itemIdentifier item
         prevId = r id idents
     case prevId of
-        Just i -> trace ("Found: " ++ show (itemIdentifier item) ++ " -> " ++ show i) $ f i
-        Nothing -> trace ("Empty: " ++ show (itemIdentifier item)) $ empty
+        Just i -> f i
+        Nothing -> empty
 
 withPreviousPost :: (Show a) => (Identifier -> Compiler b) -> Pattern -> Item a -> Compiler b
 withPreviousPost = withRelatedPost itemAfter
